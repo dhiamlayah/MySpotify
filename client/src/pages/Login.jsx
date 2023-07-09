@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const Login = () => {
@@ -21,23 +20,26 @@ const Login = () => {
   };
  
   const parametersForAccessTocken = async () => {
+    if (!params.state && !params.code ){
+      return null
+    }
     await axios.post("http://localhost:8000/callback",{
         state: params.state || null,
         code: params.code || null,
-    }).then((res)=>{
-        console.log('the response is ',res)
+    }).then(()=>{
+      window.location.href= 'http://localhost:3000/home'
     }) 
  };
  
   useEffect(() => {
      parametersForAccessTocken()
-  },[params]);
+  },[params.state]);
 
 
   return (
     <div>
       <button onClick={getAuthorization}>Log with Spotify </button>
-    </div>
+          </div>
   );
 };
 
