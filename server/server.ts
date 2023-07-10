@@ -131,6 +131,43 @@ app.get("/album", async () => {
   console.log(access_token);
 });
 
+app.get("/category",async(req:any , res:any)=>{
+  let data :any 
+  await axios
+  .get("https://api.spotify.com/v1/browse/categories?country=SE", {
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+    },
+  })
+  .then((res: any) => {
+    console.log(res.data.categories.items);
+    data = res.data
+   
+  }).catch((err:any)=>{
+    console.log('there is an error to get category data ',err)
+  })
+
+  res.json(data)
+  // await axios
+  // .get("https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFA6SOHvT3gck/playlists", {
+  //   headers: {
+  //     Authorization: `Bearer ${access_token}`,
+  //   },
+  // })
+  // .then((res: any) => {
+  //   console.log(res.data);
+   
+  // }).catch((err:any)=>{
+  //   console.log('there is an error to get playlist data ',err)
+  // })
+})
+
+app.get('/category/:categorys?',()=>{
+  //------category play_list ------//
+})
+
+
+
 app.get("/genres", async (req: any, res: any) => {
   let genresData: any;
   await axios
