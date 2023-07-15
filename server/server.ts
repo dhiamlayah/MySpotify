@@ -7,6 +7,7 @@ var cors = require("cors");
 
 app.use(cors());
 app.use(express.json());
+// app.use(express.urlencoded)
 
 //*-----------DEPENDENCY----------- */
 const client_id = "4f8370a7b1c24948ba5a8514887343df";
@@ -44,7 +45,7 @@ const sendForAccessToken = async (code: string): Promise<any> => {
           "Content-Type": "application/x-www-form-urlencoded",
         },
       })
-      .then((res:any) => {
+      .then((res: any) => {
         console.log("data is ----->", res.data);
         access_token = res.data.access_token;
         refresh_token = res.data.refresh_token;
@@ -65,16 +66,16 @@ const getRefreshToken = async (refresh_token: string | null): Promise<any> => {
         "Content-Type": "application/x-www-form-urlencoded",
       },
     })
-    .then((res:any) => {
+    .then((res: any) => {
       access_token = res.data.access_token;
     })
-    .catch((error:any) => {
+    .catch((error: any) => {
       console.log("there is an error in refresh token", error);
     });
 };
 
 //-------------authorization------------------//
-app.get("/login", (req:any ,res: any) => {
+app.get("/login", (req: any, res: any) => {
   var state = generateRandomString(16);
   var scope = "user-read-private user-read-email";
   res.json({
@@ -102,10 +103,8 @@ app.post("/callback", (req: any, res: any) => {
           error: "state_mismatch",
         })
     );
-  }else{
-    res.json(
-     { headers:{'res':'seccus'}}
-    )
+  } else {
+    res.json({ headers: { res: "seccus" } });
   }
   sendForAccessToken(code);
 });
@@ -131,42 +130,46 @@ app.get("/album", async () => {
   console.log(access_token);
 });
 
-app.get("/category",async(req:any , res:any)=>{
-  let data :any 
+app.get("/category", async (req: any, res: any) => {
+  let data: any;
   await axios
-  .get("https://api.spotify.com/v1/browse/categories?country=SE", {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
-  })
-  .then((res: any) => {
-    console.log(res.data.categories.items);
-    data = res.data
-   
-  }).catch((err:any)=>{
-    console.log('there is an error to get category data ',err)
-  })
+    .get("https://api.spotify.com/v1/browse/categories?country=SE", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
+    .then((res: any) => {
+      console.log(res.data.categories.items);
+      data = res.data;
+    })
+    .catch((err: any) => {
+      console.log("there is an error to get category data ", err);
+    });
 
-  res.json(data)
-  // await axios
-  // .get("https://api.spotify.com/v1/browse/categories/0JQ5DAqbMKFA6SOHvT3gck/playlists", {
-  //   headers: {
-  //     Authorization: `Bearer ${access_token}`,
-  //   },
-  // })
-  // .then((res: any) => {
-  //   console.log(res.data);
-   
-  // }).catch((err:any)=>{
-  //   console.log('there is an error to get playlist data ',err)
-  // })
-})
+  res.json(data);
+ 
+});
 
-app.get('/category/:categorys?',()=>{
-  //------category play_list ------//
-})
+app.get("/category/:categorys",async (req: any, res: any) => {
+  let id = req.params.categorys;
+  let data :any
+  // ------ category play_list ------
+  await axios
+    .get(`https://api.spotify.com/v1/browse/categories/${id}/playlists`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
+    .then((res: any) => {
+      data=res.data
+    })
+    .catch((err: any) => {
+      console.log(`there is an error to get playlist of id:${id} data`, err.response);
+    });
 
-
+    if(data)
+    res.json(data)
+});
 
 app.get("/genres", async (req: any, res: any) => {
   let genresData: any;
@@ -183,7 +186,7 @@ app.get("/genres", async (req: any, res: any) => {
     .catch((err: any) => {
       console.log("there is an error in genres", err);
     });
-    res.json(genresData)
+  res.json(genresData);
 });
 
 app.listen(8000, () => {

@@ -1,6 +1,7 @@
 import { Category } from "../fakeData/Category";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import CategoryPlaylist from "./categoryPlaylist";
 const Categorys = () => {
   const [data, setData] = useState("");
   const getCategory = async () => {
@@ -17,22 +18,24 @@ const Categorys = () => {
 
   useEffect(() => {
     getCategory();
-    console.log("front end data ", data);
   }, [setData]);
-  console.log(data)
-      return (
-          <div className="text-white ml-2  bg-navColor h-screen">
-             {data!==""&&data.map((item)=>{
-              return (
-                  <div className="flex">
-                      <h1 className="text-xl font-bold">{item.name}</h1>
-                  </div>
 
-              )
-             })}
+  console.log("p1----------->", data);
 
-          </div>
-       );
+  return (
+    <div className="text-white ml-2  bg-navColor h-screen">
+      {data !== "" &&
+        data.map((item) => {
+          return (
+            <div className="flex" key={item.id}>
+              <h1 className="text-xl font-bold">{item.name}</h1>
+             <CategoryPlaylist id={item.id} data={data} nbr={5} /> 
+            </div>
+          );
+        })}
+       
+    </div>
+  );
 };
 
 export default Categorys;
