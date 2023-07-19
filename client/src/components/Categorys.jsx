@@ -8,7 +8,7 @@ const Categorys = () => {
     await axios
       .get("http://localhost:8000/category")
       .then((res) => {
-        console.log("data from backend", res.data.categories.items);
+        // console.log("data from backend", res.data.categories.items);
         setData(res.data.categories.items);
       })
       .catch((err) => {
@@ -20,15 +20,15 @@ const Categorys = () => {
     getCategory();
   }, [setData]);
 
-  console.log("p1----------->", data);
+  // console.log("p1----------->", data);
 
   return (
-    <div className="text-white ml-2  bg-navColor h-screen">
+    <div className="text-white ml-2  bg-navColor ">
       {data !== "" &&
         data.map((item) => {
           return (
-            <div className="flex" key={item.id}>
-              <h1 className="text-xl font-bold">{item.name}</h1>
+            <div className="block" key={item.id}>
+              <h1 className="text-2xl px-5 pt-5 psy-7 font-bold">~{item.name} </h1>
              <CategoryPlaylist id={item.id} data={data} nbr={5} /> 
             </div>
           );

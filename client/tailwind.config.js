@@ -24,7 +24,7 @@ module.exports = {
         navColor: "#18181b",
         backColor: "#0c0a09",
         blue: "#004aad",
-     
+        a:"#0c4a6e",
       },
    
     },

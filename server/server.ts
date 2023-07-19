@@ -3,6 +3,7 @@ const app = express();
 const axios = require("axios");
 const qs = require("qs");
 const querystring = require("querystring");
+const httpMethod = require("./httpMethods/axiosMethods");
 var cors = require("cors");
 
 app.use(cors());
@@ -143,32 +144,46 @@ app.get("/category", async (req: any, res: any) => {
       data = res.data;
     })
     .catch((err: any) => {
-      console.log("there is an error to get category data ", err);
+      console.log("there is an error to get category data ", err.response);
     });
 
   res.json(data);
- 
 });
-
-app.get("/category/:categorys",async (req: any, res: any) => {
+app.get("/category/:categorys", async (req: any, res: any) => {
   let id = req.params.categorys;
-  let data :any
-  // ------ category play_list ------
+  let data: any;
+  let errExist = false;
+  let getStatus: number = 200;
+  let errMessege = `there is an error to get category  playlist data from id:${id} `;
+  let localUrl = `https://api.spotify.com/v1/browse/categories/${id}/playlists`;
+
   await axios
-    .get(`https://api.spotify.com/v1/browse/categories/${id}/playlists`, {
+    .get(localUrl, {
       headers: {
         Authorization: `Bearer ${access_token}`,
       },
     })
     .then((res: any) => {
-      data=res.data
+      data = res.data;
+      errExist = false;
     })
     .catch((err: any) => {
-      console.log(`there is an error to get playlist of id:${id} data`, err.response);
+      console.log(errMessege, err.response);
+      errExist = true;
+      data = err.response.message;
+      getStatus = err.response.status;
     });
+    
+  //  const ress = await  httpMethod.axiosGet(access_token,localUrl,errMessege)
+  //   console.log('res ------------------->', ress)
+  // // console.log("data ==>", data);
+  // // console.log("err ==>", errExist);
 
-    if(data)
-    res.json(data)
+  if (errExist) {
+    res.status(getStatus).json({ errorExist: errExist });
+  } else if (data) {
+    res.status(200).json({ errorExist: false, data });
+  }
 });
 
 app.get("/genres", async (req: any, res: any) => {
@@ -188,6 +203,73 @@ app.get("/genres", async (req: any, res: any) => {
     });
   res.json(genresData);
 });
+
+app.get("/playlist/:id", async (req: any, res: any) => {
+  let id = req.params.id;
+  let data: any;
+  let errExist = false;
+  let getStatus: number = 200;
+
+  let errMessege = `there is an error to get playlist data from id:${id} `;
+  await axios
+    .get(`https://api.spotify.com/v1/playlists/${id}?market=ES`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
+    .then((res: any) => {
+      data = res.data;
+      errExist=false
+    })
+    .catch((err: any) => {
+      console.log(errMessege, err.response);
+      errExist = true;
+      data = err.response;
+      getStatus = err.response.status;
+    });
+
+    if (errExist) {
+      res.status(getStatus).json({ errorExist: errExist });
+    } else if (data) {
+      res.status(200).json({ errorExist: false, data });
+    }
+
+
+
+});
+
+app.get("/track/audio-features/:id",async(req:any ,res:any)=>{
+  let id = req.params.id;
+  let data: any;
+  let errExist = false;
+  let getStatus: number = 200;
+
+  let errMessege = `there is an error to get audio features from track of  id:${id} `;
+  await axios
+    .get(`https://api.spotify.com/v1/audio-features/${id}`, {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
+    .then((res: any) => {
+      data = res.data;
+      errExist=false
+    })
+    .catch((err: any) => {
+      console.log(errMessege, err.response);
+      errExist = true;
+      data = err.response;
+      getStatus = err.response.status;
+    });
+
+    if (errExist) {
+      res.status(getStatus).json({ errorExist: errExist });
+    } else if (data) {
+      res.status(200).json({ errorExist: false, data });
+    }
+})
+
+
 
 app.listen(8000, () => {
   console.log("app listen in port 8000");

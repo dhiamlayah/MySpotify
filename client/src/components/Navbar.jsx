@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function index() {
+export default function Navbar() {
   const [show, setShow] = useState(true);
   const [currentPage, setCurentPage] = useState("");
 

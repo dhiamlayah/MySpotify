@@ -6,6 +6,8 @@ import Search from "./pages/Search";
 import Genres from "./components/Genres";
 import Profil from "./pages/Profil";
 import Categorys from "./components/Categorys";
+import Playlist from "./pages/Playlist";
+import TrackAudio from "./components/TrackAudio";
 const App = () => {
   return (
     <Router>
@@ -16,6 +18,8 @@ const App = () => {
           <Route path="search" element={<Search />} />
           <Route path="profil" element={<Profil />} />
         </Route>
+        <Route path="/playlist/:id" element={<Playlist/>}/>
+        <Route path="/track/audio-features/:id" element={<TrackAudio/>}/>
       </Routes>
     </Router>
   );
