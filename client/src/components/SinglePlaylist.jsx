@@ -51,7 +51,7 @@ const SinglePlaylist = ({ data }) => {
                 );
               })}
             </table>
-          </div>
+        </div>
         </div>
    
     );

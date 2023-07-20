@@ -3,7 +3,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import CategoryPlaylist from "./categoryPlaylist";
 const Categorys = () => {
-  const [data, setData] = useState("");
+  const [data, setData] = useState([]);
+  const [error , setError]= useState('')
   const getCategory = async () => {
     await axios
       .get("http://localhost:8000/category")
@@ -12,30 +13,39 @@ const Categorys = () => {
         setData(res.data.categories.items);
       })
       .catch((err) => {
-        console.log("there is an error in get catefory ", err);
+        console.log("there is an error in get category ", err);
+        setError('there is an error please relode home page')
       });
   };
 
   useEffect(() => {
     getCategory();
-  }, [setData]);
+  }, [setData,setError]);
 
   // console.log("p1----------->", data);
+  if(error!==''){
+    return(
+      <h1>{error}</h1>
+    )
 
-  return (
-    <div className="text-white ml-2  bg-navColor ">
-      {data !== "" &&
-        data.map((item) => {
+  }
+  if (data.length !== 0) {
+    return (
+      <div className="text-white ml-2  bg-navColor ">
+        {data.map((item) => {
           return (
             <div className="block" key={item.id}>
-              <h1 className="text-2xl px-5 pt-5 psy-7 font-bold">~{item.name} </h1>
-             <CategoryPlaylist id={item.id} data={data} nbr={5} /> 
+              <h1 className="text-2xl px-5 pt-5 psy-7 font-bold">
+                ~{item.name}{" "}
+              </h1>
+              <CategoryPlaylist id={item.id} data={data} nbr={5} />
             </div>
           );
         })}
-       
-    </div>
-  );
+      </div>
+    );
+  }
+  return null;
 };
 
 export default Categorys;

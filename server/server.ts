@@ -11,10 +11,12 @@ app.use(express.json());
 // app.use(express.urlencoded)
 
 //*-----------DEPENDENCY----------- */
-const client_id = "4f8370a7b1c24948ba5a8514887343df";
-const redirect_uri = "http://localhost:3000";
-const client_secret = "b3a62665841445baaa756cd269c42744";
+const localhost = process.env.localhost;
+const client_id = process.env.client_id;
+const redirect_uri = process.env.redirect_uri;
+const client_secret = process.env.client_secret;
 const url = "https://accounts.spotify.com/api/token";
+
 var access_token: string | null = null;
 var refresh_token: string | null = null;
 
@@ -78,7 +80,7 @@ const getRefreshToken = async (refresh_token: string | null): Promise<any> => {
 //-------------authorization------------------//
 app.get("/login", (req: any, res: any) => {
   var state = generateRandomString(16);
-  var scope = "user-read-private user-read-email";
+  var scope = "user-read-private user-read-playback-state user-read-email";
   res.json({
     url:
       "https://accounts.spotify.com/authorize?" +
@@ -104,11 +106,25 @@ app.post("/callback", (req: any, res: any) => {
           error: "state_mismatch",
         })
     );
-  } else {
-    res.json({ headers: { res: "seccus" } });
   }
+  
   sendForAccessToken(code);
+ if(access_token!==null){
+  res.json({access_token:access_token});
+
+ }
+
+
 });
+
+//---------------send access token -----------------------------------------//
+app.get('/accessToken',(req:any,res:any)=>{
+  if(access_token){
+    res.status(200).json({access_token})
+  }
+  res.state(401).json({error:"your are not autorizate"})
+  
+})
 
 //----------------post for refresh token -----------------------------------//
 app.post("/refreshToken", () => {
@@ -149,6 +165,7 @@ app.get("/category", async (req: any, res: any) => {
 
   res.json(data);
 });
+
 app.get("/category/:categorys", async (req: any, res: any) => {
   let id = req.params.categorys;
   let data: any;
@@ -173,7 +190,7 @@ app.get("/category/:categorys", async (req: any, res: any) => {
       data = err.response.message;
       getStatus = err.response.status;
     });
-    
+
   //  const ress = await  httpMethod.axiosGet(access_token,localUrl,errMessege)
   //   console.log('res ------------------->', ress)
   // // console.log("data ==>", data);
@@ -219,7 +236,7 @@ app.get("/playlist/:id", async (req: any, res: any) => {
     })
     .then((res: any) => {
       data = res.data;
-      errExist=false
+      errExist = false;
     })
     .catch((err: any) => {
       console.log(errMessege, err.response);
@@ -228,17 +245,14 @@ app.get("/playlist/:id", async (req: any, res: any) => {
       getStatus = err.response.status;
     });
 
-    if (errExist) {
-      res.status(getStatus).json({ errorExist: errExist });
-    } else if (data) {
-      res.status(200).json({ errorExist: false, data });
-    }
-
-
-
+  if (errExist) {
+    res.status(getStatus).json({ errorExist: errExist });
+  } else if (data) {
+    res.status(200).json({ errorExist: false, data });
+  }
 });
 
-app.get("/track/audio-features/:id",async(req:any ,res:any)=>{
+app.get("/track/audio-features/:id", async (req: any, res: any) => {
   let id = req.params.id;
   let data: any;
   let errExist = false;
@@ -253,7 +267,7 @@ app.get("/track/audio-features/:id",async(req:any ,res:any)=>{
     })
     .then((res: any) => {
       data = res.data;
-      errExist=false
+      errExist = false;
     })
     .catch((err: any) => {
       console.log(errMessege, err.response);
@@ -262,17 +276,29 @@ app.get("/track/audio-features/:id",async(req:any ,res:any)=>{
       getStatus = err.response.status;
     });
 
-    if (errExist) {
-      res.status(getStatus).json({ errorExist: errExist });
-    } else if (data) {
-      res.status(200).json({ errorExist: false, data });
-    }
-})
+  if (errExist) {
+    res.status(getStatus).json({ errorExist: errExist });
+  } else if (data) {
+    res.status(200).json({ errorExist: false, data });
+  }
+});
 
+app.get("/play", async (req: any, res: any) => {
+  await axios
+    .get("https://api.spotify.com/v1/me/player", {
+      headers: {
+        Authorization: `Bearer ${access_token}`,
+      },
+    })
+    .then((res: any) => {
+      console.log("player data >>>>>>>>>>>>>>>>>>>+========>>>>>", res.data);
+    }).catch((err:any)=>{
+      console.log('err ==================>>>>>',err.response)
+    });
+});
 
-
-app.listen(8000, () => {
-  console.log("app listen in port 8000");
+app.listen(localhost, () => {
+  console.log("app listen in port :", localhost);
 });
 /*.
 

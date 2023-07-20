@@ -78,7 +78,7 @@ const CategoryPlaylist = ({ id, data, nbr }) => {
                       alt={"img" + i}
                     />
                     <div className="  mt-2 text-center ">
-                      <Link to={`/playlist/${item.id}`} className="mt-2 text-center text-xl ">
+                      <Link to={`playlist/${item.id}`} className="mt-2 text-center text-xl ">
                         {isHovered[curseur] === true && (
                           <i className="fa-regular fa-circle-play pr-2 text-lime-300" />
                         )}

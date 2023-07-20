@@ -14,20 +14,22 @@ const Playlist = () => {
             console.log('there is an err',err.response)
         })
     } 
+    
+    
+    
     useEffect(()=>{
         getPlaylist()
     },[setData])
+
+
+
+
     if(data.length!==0){   
     return (
-        <div className='block'>
-            <div className='block sm:flex   '>
-                <Navbar/>
-            </div>
-            <div className=' sm:ml-72 rounded-3xl '>
+            <div className='rounded-3xl '>
                 {data!==[] && <SinglePlaylist data={data}/>}
             </div>
-        </div>
-      );}
+       );}
 
     }
  

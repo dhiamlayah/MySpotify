@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
@@ -9,16 +9,17 @@ import Categorys from "./components/Categorys";
 import Playlist from "./pages/Playlist";
 import TrackAudio from "./components/TrackAudio";
 const App = () => {
+
   return (
     <Router>
       <Routes>
-        <Route path="/:code?:state?" element={<Login />} />
-        <Route  path="/home" element={<Home />}>
+        <Route path="/:code?:state?" element={<Login/>} />
+        <Route  path="/home" element={<Home/>}>
           <Route path="" element={<Categorys />} />
           <Route path="search" element={<Search />} />
           <Route path="profil" element={<Profil />} />
-        </Route>
-        <Route path="/playlist/:id" element={<Playlist/>}/>
+          <Route path="playlist/:id" element={<Playlist/>}/>
+     </Route>
         <Route path="/track/audio-features/:id" element={<TrackAudio/>}/>
       </Routes>
     </Router>
