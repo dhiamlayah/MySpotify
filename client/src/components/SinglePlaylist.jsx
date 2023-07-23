@@ -1,9 +1,14 @@
 import "../css/bg.css";
- 
+
 import SingleTrack from "../utils/SingleTrack";
+
 const SinglePlaylist = ({ data }) => {
+  const PlayPlaylist=()=>{
+   localStorage.setItem('uri',data.data.uri)
+   console.log(localStorage)
+  }
+
   let count = 0;
-  console.log("thiiis is the fulll data", data);
   if (data !== []) {
     let playlist = data.data;
     return (
@@ -28,32 +33,36 @@ const SinglePlaylist = ({ data }) => {
               </h1>
             </div>
           </div>
+
+
+          <div className="p-5 ml-8 flex " >
+           <i className="fa-solid fa-circle-play text-5xl hover:cursor-pointer" onClick={()=>{PlayPlaylist()}}></i> <h1 className="text-2xl text-center p-2 hover:cursor-pointer" onClick={()=>{PlayPlaylist()}}>start now</h1>
+          </div>
         </div>
 
-        <div className="bg-navColor h-full w-full rounded-3xl ">
-           
-            <table className="   text-white text-sm text-left  mt-5 shadow-sm w-full overflow-hidden  ">
-              <thead className=" font-medium  overflow-hidden w-full   ">
-                <tr >
-                  <th className="py-3 px-6 bg-a ">Top Iteam For The Last Month</th>
-                   <th className="  "></th>
-                   <th className=""></th>
-                </tr>
-              </thead>
-              {playlist.tracks.items.map((item) => {
-                count += 1;
-                console.log(item);
-                const track = item.track;
-                return (
-                  <tbody >
-                    <SingleTrack count={count} item={track} />
-                  </tbody>
-                );
-              })}
-            </table>
+        <div className="bg-navColor h-full w-full rounded-3xl mb-32 ">
+          <table className="   text-white text-sm text-left  mt-5 shadow-sm w-full overflow-hidden  ">
+            <thead className=" font-medium  overflow-hidden w-full   ">
+              <tr>
+                <th className="py-3 px-6 bg-a ">
+                  Top Iteam For The Last Month
+                </th>
+                <th className="  "></th>
+                <th className=""></th>
+              </tr>
+            </thead>
+            {playlist.tracks.items.map((item) => {
+              count += 1;
+              const track = item.track;
+              return (
+                <tbody>
+                  <SingleTrack count={count} item={track} />
+                </tbody>
+              );
+            })}
+          </table>
         </div>
-        </div>
-   
+      </div>
     );
   }
 

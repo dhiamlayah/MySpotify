@@ -15,8 +15,7 @@ const SingleTrack = ({ item, count }) => {
   const album = item.album;
   const artists = item.artists;
   const time = InMinut(item.duration_ms);
-  console.log(time);
-  console.log(artists);
+
   return (
     <tr
       key={item.album.id}
@@ -26,7 +25,7 @@ const SingleTrack = ({ item, count }) => {
     >
       <td className="  whitespace-nowrap p-5 text-xl text-gray-600  overflow-hidden ">
         {!isHovered &&count}
-        {isHovered &&    <Link to={`/track/audio-features/${item.id}`}><i class="fa-solid fa-play fa-bounce text-a"></i></Link>}
+        {isHovered &&    <Link to={`/track/audio-features/${item.id}`}><i className="fa-solid fa-play fa-bounce text-a"></i></Link>}
       </td>
   
  

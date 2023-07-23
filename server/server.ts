@@ -80,7 +80,7 @@ const getRefreshToken = async (refresh_token: string | null): Promise<any> => {
 //-------------authorization------------------//
 app.get("/login", (req: any, res: any) => {
   var state = generateRandomString(16);
-  var scope = "user-read-private user-read-playback-state user-read-email";
+  var scope = "user-read-private user-read-playback-state user-read-email streaming";
   res.json({
     url:
       "https://accounts.spotify.com/authorize?" +
@@ -283,7 +283,10 @@ app.get("/track/audio-features/:id", async (req: any, res: any) => {
   }
 });
 
+
+//---------------------get the curent play song of the user from spotify ---------//
 app.get("/play", async (req: any, res: any) => {
+  var  data : any = null
   await axios
     .get("https://api.spotify.com/v1/me/player", {
       headers: {
@@ -292,10 +295,16 @@ app.get("/play", async (req: any, res: any) => {
     })
     .then((res: any) => {
       console.log("player data >>>>>>>>>>>>>>>>>>>+========>>>>>", res.data);
+      data = res.data
     }).catch((err:any)=>{
       console.log('err ==================>>>>>',err.response)
     });
+
+  
+    console.log(data)
 });
+
+
 
 app.listen(localhost, () => {
   console.log("app listen in port :", localhost);
@@ -303,8 +312,8 @@ app.listen(localhost, () => {
 /*.
 
 ..
-.
-..
+.12439a55f075d3e30ae578b304e43465333526c5
+.12439a55f075d3e30ae578b304e43465333526c5
 .
 .
 
