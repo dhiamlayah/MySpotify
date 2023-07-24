@@ -1,19 +1,22 @@
 import { useEffect, useState } from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
-
+import { useContext } from "react";
+import { AudioListenner } from "./Home";
 function WebPlayback({ token }) {
-  const [uri,setUri]=useState(localStorage.getItem('uri'))
-  const  [i,setI]=useState(0)
- useEffect(()=>{
-      setUri(localStorage.uri)
-  },[setUri])
-    console.log('render',uri)
+  
+   
+  const {uri,autoPlay,trackNumber} = useContext(AudioListenner)
+  console.log('trackNumber',trackNumber)
+  console.log('uri from playbck',uri)
   return (
     <div>
-       <h1 className="text-white text-5xl">the usi is :{uri}</h1> 
-      {/* <SpotifyPlayer
+      <SpotifyPlayer
         token={token}
         uris={[uri]}
+        play={true}
+        offset={trackNumber}
+        magnifySliderOnHover={true}
+        persistDeviceSelection ={true}
         styles={{
           bgColor: "#0c0a09",
           color: "#fff",
@@ -22,8 +25,8 @@ function WebPlayback({ token }) {
           savedColor: "#333",
           trackArtistColor: "#333",
           trackNameColor: "#333",
-        }} */}
-      {/* /> */}
+        }}
+      />
     </div>
   );
 }

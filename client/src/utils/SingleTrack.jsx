@@ -1,9 +1,10 @@
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState,useContext } from "react";
 import { InMinut } from "../methods/duration";
-const SingleTrack = ({ item, count }) => {
+import { AudioListenner } from "../pages/Home";
+const SingleTrack = ({ item, count,uri }) => {
   const [isHovered, setIsHovered] = useState(false);
- 
+  const {setTrackNumber,setUri} = useContext(AudioListenner)
   const handleMouseEnter = () => {
     setIsHovered(true);
   };
@@ -11,6 +12,10 @@ const SingleTrack = ({ item, count }) => {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
+
+  const playTrack = ()=>{
+      setUri(item.uri)
+  }
 
   const album = item.album;
   const artists = item.artists;
@@ -25,7 +30,7 @@ const SingleTrack = ({ item, count }) => {
     >
       <td className="  whitespace-nowrap p-5 text-xl text-gray-600  overflow-hidden ">
         {!isHovered &&count}
-        {isHovered &&    <Link to={`/track/audio-features/${item.id}`}><i className="fa-solid fa-play fa-bounce text-a"></i></Link>}
+        {isHovered &&    <i className="fa-solid fa-play fa-bounce text-a" onClick={()=>playTrack()}></i>}
       </td>
   
  

@@ -1,10 +1,17 @@
-import React,{useEffect, useState} from "react";
+import React,{useEffect, useState,createContext} from "react";
 import { Outlet } from "react-router-dom";
 import axios from 'axios';
 import Navbar from "../components/Navbar";
 import WebPlayback from "./PlayBack";
+
+export  const AudioListenner = createContext()
+
 const Home = () => {
+  const [uri , setUri]=useState("initialiser par user")
+  const [autoPlay , setAutoPlay]=useState(false)
   const [accessToken,setAcessToken]=useState(null)
+  const [trackNumber,setTrackNumber]=useState(0)
+
   const getAccessToken = async()=>{
     await axios.get('http://localhost:8000/accessToken').then((res)=>{
        setAcessToken(res.data.access_token)
@@ -13,34 +20,26 @@ const Home = () => {
     })
   }
 
-  const getDevicesId =async()=>{
-    await axios.get('http://localhost:8000/play').then((res)=>{
-      console.log('the response from the backend for divice id ',res.data)
-    }).catch((err)=>{
-      console.log('ther is an err to get divice id ',err.response)
-    })
-  }
-
-// getDevicesId()
-
   useEffect(()=>{
     getAccessToken()
     // getDevicesId()
-  },[Storage])
+  },[setAcessToken])
 
    
   return (
     <div className="relative w-full h-screen">
-      <div className="block sm:flex  bg-backColor   ">
-        <Navbar />
-        <div className=" sm:pl-72 w-full bg-backColor">
-         {accessToken && <Outlet />}
+      <AudioListenner.Provider value={{uri,setUri,autoPlay,setAutoPlay,trackNumber,setTrackNumber}}>
+        <div className="block sm:flex  bg-backColor   ">
+          <Navbar />
+          <div className=" sm:pl-72 w-full bg-backColor">
+           {accessToken && <Outlet />}
+          </div>
+        
+         </div>
+         <div className="absolute w-full inset-x-0 bottom-0 sm:fixed z-10	">
+          {accessToken &&   <WebPlayback token={accessToken} />}
         </div>
-      
-       </div>
-       <div className="absolute w-full inset-x-0 bottom-0 sm:fixed z-10	">
-        {accessToken &&   <WebPlayback token={accessToken} />}
-      </div>
+      </AudioListenner.Provider>
     </div>
 
   );

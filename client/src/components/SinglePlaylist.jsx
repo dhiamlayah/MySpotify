@@ -1,14 +1,17 @@
 import "../css/bg.css";
-
+import { useContext } from "react";
 import SingleTrack from "../utils/SingleTrack";
 
+import { AudioListenner } from "../pages/Home";
 const SinglePlaylist = ({ data }) => {
-  const PlayPlaylist=()=>{
-   localStorage.setItem('uri',data.data.uri)
-   console.log(localStorage)
-  }
+  const { setUri, setAutoPlay } = useContext(AudioListenner);
+  const PlayPlaylist = async () => {
+    setUri(data.data.uri);
+    setAutoPlay(true);
+  };
 
   let count = 0;
+
   if (data !== []) {
     let playlist = data.data;
     return (
@@ -34,9 +37,21 @@ const SinglePlaylist = ({ data }) => {
             </div>
           </div>
 
-
-          <div className="p-5 ml-8 flex " >
-           <i className="fa-solid fa-circle-play text-5xl hover:cursor-pointer" onClick={()=>{PlayPlaylist()}}></i> <h1 className="text-2xl text-center p-2 hover:cursor-pointer" onClick={()=>{PlayPlaylist()}}>start now</h1>
+          <div className="p-5 ml-8 flex ">
+            <i
+              className="fa-solid fa-circle-play text-5xl hover:cursor-pointer"
+              onClick={() => {
+                PlayPlaylist();
+              }}
+            ></i>{" "}
+            <h1
+              className="text-2xl text-center p-2 hover:cursor-pointer"
+              onClick={() => {
+                PlayPlaylist();
+              }}
+            >
+              start now
+            </h1>
           </div>
         </div>
 
@@ -51,15 +66,20 @@ const SinglePlaylist = ({ data }) => {
                 <th className=""></th>
               </tr>
             </thead>
-            {playlist.tracks.items.map((item) => {
-              count += 1;
-              const track = item.track;
-              return (
-                <tbody>
-                  <SingleTrack count={count} item={track} />
-                </tbody>
-              );
-            })}
+            <tbody>
+              {playlist.tracks.items.map((item) => {
+                count += 1;
+                const track = item.track;
+                return (
+                  <SingleTrack
+                    count={count}
+                    item={track}
+                    uri={playlist.uri}
+                    key={track.album.id}
+                  />
+                );
+              })}
+            </tbody>
           </table>
         </div>
       </div>
