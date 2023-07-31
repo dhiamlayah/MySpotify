@@ -283,6 +283,47 @@ app.get("/track/audio-features/:id", async (req: any, res: any) => {
   }
 });
 
+app.get("/search/:name/:type",async(req:any ,res:any)=>{
+  const name = req.params.name
+  const type = req.params.type
+   let data:any =null 
+  let errExist =false
+  let getStatus = 200
+
+  const ReplaceCommas =(str:String)=>{
+    //'type=album%2Cartist,track,playlist,show,episode,audiobook' to 'album%2C.....'
+      let str1 = str.split('=')
+      return str1[1].split(",").join('%2C')
+  }
+  let newType = ReplaceCommas(type)
+
+  await axios.get(`https://api.spotify.com/v1/search?q=${name}&type=${newType}`,{
+    headers :{
+      Authorization: `Bearer ${access_token}`,
+    }
+  }).then((res:any)=>{
+    console.log('response from the backend is ',res.data)
+    data=res.data
+  }).catch((err:any)=>{
+    console.log('errors from search in the BackEnd Site :::::>>',err.response.data)
+    errExist=true 
+    getStatus= err.response.status
+  })
+  
+  console.log('type',newType)
+
+ 
+
+  if (errExist) {
+    res.status(getStatus).json({ errorExist: errExist });
+  } else if (data) {
+    res.status(200).json({ errorExist: false, data });
+  }
+  
+  
+
+})
+
 
 //---------------------get the curent play song of the user from spotify ---------//
 app.get("/play", async (req: any, res: any) => {

@@ -1,7 +1,8 @@
 import { FilterArtist, FilterMusic } from "../methods/FilterArtist";
 import SingleItem from "../utils/SinglItem";
 
-const MusicFound = ({ musicData }) => {
+const Albums = ({ musicData }) => {
+ if(musicData.albums){ 
   const allMusicsFound = musicData.albums.items;
   console.log(allMusicsFound);
 
@@ -10,7 +11,7 @@ const MusicFound = ({ musicData }) => {
 
   return (
     <div className="bg-navColor w-full ">
-      <div className="">
+     <div className="">
         <ul role="list" className="block">
           {newData.map((artist) => (
             <div key={artist[0].artists[0].name}>
@@ -25,7 +26,12 @@ const MusicFound = ({ musicData }) => {
         </ul>
       </div>
     </div>
-  );
+  );}
+  return(
+    <div className="pt-44 "> 
+          <i className="fa-solid fa-spinner fa-spin-pulse text-gray-600 text-5xl text-center w-full "></i>
+    </div>
+    )
 };
 
-export default MusicFound;
+export default Albums;

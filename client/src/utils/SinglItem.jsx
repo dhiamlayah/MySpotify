@@ -1,7 +1,7 @@
 const SingleItem = ({song}) => {
     return (
     
-        <div className=" p-4 bg-backColor rounded-xl  m-5 w-40" key={song.name}>
+        <div className=" p-4 bg-backColor rounded-xl  m-5 w-40 hover:bg-gray-600 transition duration-300" key={song.name}>
         <div>
             <img className="rounded-full w-32 h-32" src={song.images[1].url} alt="" />
         </div>

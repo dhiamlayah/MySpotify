@@ -86,7 +86,11 @@ const SinglePlaylist = ({ data }) => {
     );
   }
 
-  return null;
+  return (
+    <div className="pt-44 ">
+      <i className="fa-solid fa-spinner fa-spin-pulse text-gray-600 text-5xl text-center w-full "></i>
+    </div>
+  );
 };
 
 export default SinglePlaylist;

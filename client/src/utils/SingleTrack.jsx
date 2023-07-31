@@ -14,6 +14,7 @@ const SingleTrack = ({ item, count,uri }) => {
   };
 
   const playTrack = ()=>{
+      console.log('!!!!!!!',uri) 
       setUri(item.uri)
   }
 

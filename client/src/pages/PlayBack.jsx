@@ -14,7 +14,6 @@ function WebPlayback({ token }) {
         token={token}
         uris={[uri]}
         play={true}
-        offset={trackNumber}
         magnifySliderOnHover={true}
         persistDeviceSelection ={true}
         styles={{
