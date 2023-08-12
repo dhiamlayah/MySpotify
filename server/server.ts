@@ -12,9 +12,9 @@ app.use(express.json());
 
 //*-----------DEPENDENCY----------- */
 const localhost = process.env.localhost;
-const client_id = process.env.client_id;
-const redirect_uri = process.env.redirect_uri;
-const client_secret = process.env.client_secret;
+const client_id = process.env.client_id;  //client id from dashbord page 
+const redirect_uri = process.env.redirect_uri; 
+const client_secret = process.env.client_secret; //client secret from dashbord page 
 const url = "https://accounts.spotify.com/api/token";
 
 var access_token: string | null = null;
