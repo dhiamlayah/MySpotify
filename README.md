@@ -12,6 +12,10 @@
     -Oauth 2.0
     -axios
 
+ # Imeges 
+ ![image](https://github.com/dhiamlayah/MySpotify/assets/113603828/6cd160f1-2885-4ba0-b456-7082f07058de)
+
+
 # How to get started :
 to use this code there is some steps you should follow to successfuly implement it in yout platforme 
 
