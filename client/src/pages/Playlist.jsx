@@ -14,14 +14,9 @@ const Playlist = () => {
         })
     } 
     
-    
-    
     useEffect(()=>{
         getPlaylist()
     },[setData])
-
-
-
 
     if(data.length!==0){   
     return (

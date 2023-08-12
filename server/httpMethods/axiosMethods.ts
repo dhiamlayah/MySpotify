@@ -14,7 +14,7 @@ const axiosGet = async (access_token :string,url:string,errMessege:string):Promi
         }).catch((err:any)=>{
         console.log(errMessege,err.response)
         errExist.value = true
-        data.value=err.response.message
+        data.value=err.response.data
       })
     
       return {data:data.value,errExist:errExist.value }

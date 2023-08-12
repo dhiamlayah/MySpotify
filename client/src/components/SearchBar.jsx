@@ -7,8 +7,7 @@ const SearchBar = (props) => {
     "Artist",
     "Playlist",
     "Song",
-    "Epsiode",
-    "Show",
+     
   ];
 
   const handleClick = (searchBy)=>{

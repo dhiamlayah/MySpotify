@@ -37,11 +37,11 @@ const SingleTrack = ({ item, count,uri }) => {
  
       <td className="  whitespace-nowrap w-1/3    overflow-hidden	">
         <div className="flex">
-          <img
+        {album.images>0  &&  <img
             src={album.images[2].url}
             className="w-12 h-12 my-2"
             alt="albumImg"
-          />
+          />}
           <div className="block w-full overflow-hidden  ">
             <h1 className="text-xl pl-2 p-1  w-64 whitespace-nowrap overflow-hidden   text-ellipsis">
               {item.name}

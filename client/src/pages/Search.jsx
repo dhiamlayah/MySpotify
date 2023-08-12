@@ -5,6 +5,7 @@ import Artist from "../FilterMusicBy/FilterByArtist";
 import axios from "axios";
 import Playlist from "../FilterMusicBy/FilterByPlaylist";
 import Track from "../FilterMusicBy/FilterByTrack";
+import All from "../FilterMusicBy/FIlterByAll";
 
 const Search = () => {
   // console.log(musics)
@@ -47,7 +48,7 @@ const Search = () => {
       {musicFound==='' && <div><i className="fa-solid fa-magnifying-glass fa-beat-fade bg-gray-600 text-4xl "></i> </div>}
       {searchBy ===
         "album%2Cartist%2Ctrack%2Cplaylist%2Cshow%2Cepisode%2Caudiobook" && (
-        <h1 className="text-white">search by All</h1>
+         <All musicFound={musicFound}/>
       )}
       {searchBy === "artist" && <Artist musicFound={musicFound}/>}
       {searchBy === "album" && <Album musicData={musicFound} />}

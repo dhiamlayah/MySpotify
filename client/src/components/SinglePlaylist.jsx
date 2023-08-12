@@ -75,7 +75,7 @@ const SinglePlaylist = ({ data }) => {
                     count={count}
                     item={track}
                     uri={playlist.uri}
-                    key={track.album.id}
+                    key={count}
                   />
                 );
               })}

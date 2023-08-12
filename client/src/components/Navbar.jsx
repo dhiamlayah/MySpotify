@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import FolowPlaylist from "./folowPlaylist";
 
 export default function Navbar() {
   const [show, setShow] = useState(true);
@@ -93,12 +94,11 @@ export default function Navbar() {
             </div>
           </div>
           <hr className="bg-backColor border-backColor my-4 h-2" />
+          <p className="px-5 font-bold">Folow Playlist :</p>
+
           <div className=" Flow Root border-2 rounded-md m-2 h-72	">
-            <h1>PLAYLIST</h1>
-            <h1>OTHER</h1>
-            <i className="far fa-star"></i>
-            <i className="fab fa-twitter"></i>
-            <i className="fa-duotone fa-list-music" />
+            <FolowPlaylist/>
+            
           </div>
         </div>
       </nav>
