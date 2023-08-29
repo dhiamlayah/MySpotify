@@ -20,9 +20,12 @@
 to use this code there is some steps you should follow to successfuly implement it in yout platforme 
 
  ### 0- git install 
- ### 1- Log into the dashboard using your Spotify account (https://developer.spotify.com/dashboard)
+ ### 1- npm install -g ts-node
+ ### 2- Log into the dashboard using your Spotify account (https://developer.spotify.com/dashboard)
 when you log successfuly you get client-ID and Client-Secret and put them inside .env file (inside server folder)
+ ### 3- create two terminal one for the frontend and other for the backend 
+ then for each one tap npm start 
 
 
 
-
+### thanks 
