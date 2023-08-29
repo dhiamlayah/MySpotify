@@ -20,9 +20,8 @@
 to use this code there is some steps you should follow to successfuly implement it in yout platforme 
 
  ### 0- git install 
- ### 1- npm install -g ts-node
  ### 1- Log into the dashboard using your Spotify account (https://developer.spotify.com/dashboard)
-when you log successfuly create new project to get client-ID and Client-Secret then put them inside .env file (inside server folder)
+when you log successfuly you get client-ID and Client-Secret and put them inside .env file (inside server folder)
 
 
 

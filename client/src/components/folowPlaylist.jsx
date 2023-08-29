@@ -18,7 +18,7 @@ const FolowPlaylist = () => {
   };
   useEffect(() => {
     getFolowPlaylist();
-  }, []);
+  }, [folowPlaylist]);
 
   if (folowPlaylist) {
     const playlists = folowPlaylist.items;
