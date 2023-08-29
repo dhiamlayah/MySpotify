@@ -13,7 +13,7 @@
     -axios
 
  # Imeges 
- ![image](https://github.com/dhiamlayah/MySpotify/assets/113603828/6cd160f1-2885-4ba0-b456-7082f07058de)
+ ![Capture](https://github.com/dhiamlayah/MySpotify/assets/113603828/757c61bc-f23b-4a66-baaa-d8181b473563)
 
 
 # How to get started :
