@@ -17,9 +17,10 @@
  ![Capture](https://github.com/dhiamlayah/MySpotify/assets/113603828/757c61bc-f23b-4a66-baaa-d8181b473563)
 
  authorization :
- ![Capture](https://github.com/dhiamlayah/MySpotify/assets/113603828/246dd181-25e2-4415-ad2b-e32baa9589e5)
+![authorization](https://github.com/dhiamlayah/MySpotify/assets/113603828/d2242883-093c-4f6e-bd65-8f34ca6e37c3)
 
-
+ Home page : 
+ 
 
 # How to get started :
 to use this code there is some steps you should follow to successfuly implement it in yout platforme 
