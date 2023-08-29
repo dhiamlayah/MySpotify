@@ -13,7 +13,12 @@
     -axios
 
  # Imeges 
+ welcome page for authorization :
  ![Capture](https://github.com/dhiamlayah/MySpotify/assets/113603828/757c61bc-f23b-4a66-baaa-d8181b473563)
+
+ authorization :
+ ![Capture](https://github.com/dhiamlayah/MySpotify/assets/113603828/246dd181-25e2-4415-ad2b-e32baa9589e5)
+
 
 
 # How to get started :
