@@ -20,7 +20,8 @@
 ![authorization](https://github.com/dhiamlayah/MySpotify/assets/113603828/d2242883-093c-4f6e-bd65-8f34ca6e37c3)
 
  Home page : 
- 
+![acceui](https://github.com/dhiamlayah/MySpotify/assets/113603828/ab0ca2ee-ca6c-49d3-a129-df33eb1deec3)
+
 
 # How to get started :
 to use this code there is some steps you should follow to successfuly implement it in yout platforme 
